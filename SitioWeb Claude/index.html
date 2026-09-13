@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aterrizar.com — Descubrí los mejores destinos turísticos de playa y montaña. Reseñas, itinerarios y guías de viaje para Mar del Plata, Punta del Este, Cancún, Mendoza, Bariloche y Cusco.">
+  <meta name="keywords" content="turismo, destinos, playa, montaña, Mar del Plata, Cancún, Mendoza, Bariloche, Cusco, viajes">
+  <meta name="author" content="Castro Carlo — Proyecto de Software">
+
+  <title>Aterrizar.com — Destinos Turísticos</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos separada -->
+  <link rel="stylesheet" href="estilosIA.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       CONTROLES OCULTOS — Checkbox Hack para interactividad CSS
+       Deben estar ANTES de todos los elementos que controlan
+       para que el selector ~ (hermano general) funcione
+  ============================================================ -->
+  <input type="checkbox" id="toggle-contacto" class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+  <input type="checkbox" id="toggle-mant"     class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+  <input type="checkbox" id="toggle-lista"    class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+  <input type="checkbox" id="toggle-buscar"   class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+  <input type="radio"    id="cat-playa"   name="categoria" class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+  <input type="radio"    id="cat-montana" name="categoria" class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+
+  <!-- ============================================================
+       MODAL — Formulario de Contacto
+  ============================================================ -->
+  <div class="modal-overlay" id="modal-contacto" role="dialog"
+       aria-labelledby="modal-contacto-title" aria-modal="true">
+    <div class="modal-box">
+
+      <!-- Control interno: estado del formulario (enviado / no enviado) -->
+      <input type="checkbox" id="form-enviado" class="ctrl-hidden" tabindex="-1" aria-hidden="true">
+
+      <h2 id="modal-contacto-title">✉️ Contacto</h2>
+
+      <!-- Formulario (se oculta al enviar) -->
+      <div class="form-wrapper">
+        <div class="form-group">
+          <label for="inp-nombre">Nombre</label>
+          <input type="text" id="inp-nombre" name="nombre"
+                 placeholder="Ingresá tu nombre" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="inp-apellido">Apellido</label>
+          <input type="text" id="inp-apellido" name="apellido"
+                 placeholder="Ingresá tu apellido" autocomplete="family-name">
+        </div>
+        <div class="form-group">
+          <label for="inp-email">Email</label>
+          <input type="email" id="inp-email" name="email"
+                 placeholder="tu@email.com" autocomplete="email">
+        </div>
+        <div class="modal-actions">
+          <label for="form-enviado" class="btn btn-primary"
+                 tabindex="0" role="button" id="btn-enviar-contacto">
+            Enviar
+          </label>
+          <label for="toggle-contacto" class="btn btn-secondary"
+                 tabindex="0" role="button" id="btn-cerrar-contacto">
+            Cerrar
+          </label>
+        </div>
+      </div><!-- /form-wrapper -->
+
+      <!-- Mensaje de confirmación (aparece al enviar) -->
+      <div class="msg-enviado" role="alert" aria-live="polite">
+        ✅ Contacto registrado
+      </div>
+
+    </div><!-- /modal-box -->
+  </div><!-- /modal-contacto -->
+
+  <!-- ============================================================
+       MODAL — Mantenimiento / Créditos
+  ============================================================ -->
+  <div class="modal-overlay" id="modal-mant" role="dialog"
+       aria-labelledby="modal-mant-title" aria-modal="true">
+    <div class="modal-box">
+      <h2 id="modal-mant-title">ℹ️ Mantenimiento</h2>
+      <p>
+        Sitio web realizado para la materia
+        <strong>"Proyecto de Software"</strong>
+        por el estudiante <strong>Castro Carlo</strong>,
+        legajo <strong>24739/0</strong>.
+      </p>
+      <div class="modal-actions" style="margin-top: 28px;">
+        <label for="toggle-mant" class="btn btn-secondary"
+               tabindex="0" role="button" id="btn-cerrar-mant">
+          Cerrar
+        </label>
+      </div>
+    </div>
+  </div><!-- /modal-mant -->
+
+  <!-- ============================================================
+       PANEL LATERAL — Lista de Destinos Turísticos
+  ============================================================ -->
+  <aside class="panel-lista" id="panel-lista"
+         role="complementary" aria-label="Lista de destinos turísticos">
+    <div class="panel-inner">
+      <h2>📋 Lista de Destinos Turísticos</h2>
+
+      <div class="categorias-grid">
+
+        <div class="cat-col">
+          <h3>🌊 Playa</h3>
+          <ul>
+            <li>Mar del Plata</li>
+            <li>Punta del Este</li>
+            <li>Cancún</li>
+          </ul>
+        </div>
+
+        <div class="cat-col">
+          <h3>⛰️ Montaña</h3>
+          <ul>
+            <li>Mendoza</li>
+            <li>Bariloche</li>
+            <li>Cusco</li>
+          </ul>
+        </div>
+
+      </div><!-- /categorias-grid -->
+
+      <label for="toggle-lista" class="btn btn-secondary"
+             tabindex="0" role="button" id="btn-ocultar-lista">
+        Ocultar lista
+      </label>
+    </div><!-- /panel-inner -->
+  </aside><!-- /panel-lista -->
+
+  <!-- ============================================================
+       BARRA DE NAVEGACIÓN
+  ============================================================ -->
+  <nav class="navbar" role="navigation" aria-label="Navegación principal">
+
+    <span class="navbar-logo" aria-label="Aterrizar.com — inicio">
+      Aterrizar.com
+    </span>
+
+    <div class="navbar-buttons" role="list">
+
+      <label for="toggle-contacto" class="nav-btn"
+             tabindex="0" role="listitem button"
+             aria-haspopup="dialog" id="nav-btn-contacto">
+        Contacto
+      </label>
+
+      <label for="toggle-mant" class="nav-btn"
+             tabindex="0" role="listitem button"
+             aria-haspopup="dialog" id="nav-btn-mant">
+        Mantenimiento
+      </label>
+
+      <label for="toggle-lista" class="nav-btn"
+             tabindex="0" role="listitem button"
+             aria-haspopup="complementary" id="nav-btn-lista">
+        Lista de destinos turísticos
+      </label>
+
+    </div><!-- /navbar-buttons -->
+  </nav><!-- /navbar -->
+
+  <!-- ============================================================
+       CONTENIDO PRINCIPAL
+  ============================================================ -->
+  <main>
+
+    <!-- ── Sección Hero ─────────────────────────────────────── -->
+    <section class="hero" aria-label="Buscador de destinos">
+
+      <h1>Buscá la información de tu destino turístico ideal!</h1>
+
+      <!-- Carrusel automático de imágenes -->
+      <div class="carousel-wrapper"
+           role="region" aria-label="Carrusel de imágenes de destinos turísticos"
+           aria-live="off">
+        <div class="carousel-track">
+          <!-- Imágenes en orden variado (no alfabético) -->
+          <div class="carousel-slide">
+            <img src="imagenes/mendoza.png"        alt="Viñedos de Mendoza con la Cordillera de los Andes" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="imagenes/cancun.png"          alt="Playa de Cancún con aguas turquesas del Caribe" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="imagenes/bariloche.png"       alt="Lago Nahuel Huapi y montañas nevadas en Bariloche" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="imagenes/mdp.png"             alt="Playa Bristol de Mar del Plata con sombrillas coloridas" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="imagenes/cusco.png"           alt="Ciudadela de Machu Picchu entre las montañas andinas" loading="lazy">
+          </div>
+          <div class="carousel-slide">
+            <img src="imagenes/punta_del_este.png"  alt="Escultura La Mano en la playa de Punta del Este" loading="lazy">
+          </div>
+          <!-- Duplicado para loop infinito sin saltos -->
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/mendoza.png"        alt="" loading="lazy">
+          </div>
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/cancun.png"          alt="" loading="lazy">
+          </div>
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/bariloche.png"       alt="" loading="lazy">
+          </div>
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/mdp.png"             alt="" loading="lazy">
+          </div>
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/cusco.png"           alt="" loading="lazy">
+          </div>
+          <div class="carousel-slide" aria-hidden="true">
+            <img src="imagenes/punta_del_este.png"  alt="" loading="lazy">
+          </div>
+        </div><!-- /carousel-track -->
+      </div><!-- /carousel-wrapper -->
+
+      <!-- Botón principal de búsqueda -->
+      <label for="toggle-buscar" class="btn-buscar"
+             tabindex="0" role="button"
+             aria-haspopup="true" id="btn-buscar-destino">
+        Buscar destino!
+      </label>
+
+      <!-- Selector de categoría (oculto hasta presionar "Buscar destino!") -->
+      <div class="categoria-selector" aria-label="Selección de categoría de destino">
+        <p>Ingresá la categoría del destino buscado</p>
+        <div class="cat-buttons" role="group" aria-label="Categorías disponibles">
+
+          <label for="cat-playa" class="btn-cat"
+                 tabindex="0" role="button" id="btn-cat-playa">
+            Playa 🌊
+          </label>
+
+          <label for="cat-montana" class="btn-cat"
+                 tabindex="0" role="button" id="btn-cat-montana">
+            Montaña ⛰️
+          </label>
+
+        </div>
+      </div><!-- /categoria-selector -->
+
+    </section><!-- /hero -->
+
+    <!-- ============================================================
+         DESTINOS DE PLAYA
+    ============================================================ -->
+    <section class="destinos-section" id="destinos-playa"
+             aria-label="Destinos turísticos de playa">
+
+      <h2 class="section-title">🌊 Destinos de Playa</h2>
+
+      <div class="destinos-grid">
+
+        <!-- ── Mar del Plata ─────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Mar del Plata">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/mdp.png"
+                 alt="Vista aérea de la Playa Bristol de Mar del Plata con sombrillas coloridas y el skyline de la ciudad"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-playa">Playa</span>
+            <h3>Mar del Plata</h3>
+            <p>
+              Conocida como <em>"La Feliz"</em>, Mar del Plata es el balneario más popular de Argentina.
+              Sus amplias playas de arena dorada, el majestuoso Casino Central y su vibrante vida
+              nocturna la convierten en el destino de verano por excelencia. Disfrutá del Puerto con
+              sus lobos marinos, los paseos costeros y la gastronomía marinera sin igual.
+              ¡Un clásico argentino que nunca decepciona!
+            </p>
+            <a href="guias/mdp.pdf"
+               download="Itinerario_MardelPlata.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Mar del Plata"
+               id="download-mdp">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Punta del Este ────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Punta del Este">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/punta_del_este.png"
+                 alt="La escultura La Mano emergiendo de la arena blanca de Punta del Este con el skyline al fondo"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-playa">Playa</span>
+            <h3>Punta del Este</h3>
+            <p>
+              La joya del Atlántico sudamericano combina playas de arena blanca, aguas cristalinas
+              y un estilo de vida sofisticado. Hogar de la icónica escultura <em>"La Mano"</em> y del
+              animado Puerto, este destino uruguayo es el preferido de la élite regional. Sus exclusivos
+              restaurantes, boutiques de diseño y la vida nocturna garantizan una experiencia
+              de lujo inigualable.
+            </p>
+            <a href="guias/punta_del_este.pdf"
+               download="Itinerario_PuntadelEste.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Punta del Este"
+               id="download-pde">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Cancún ─────────────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Cancún">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/cancun.png"
+                 alt="Playa de Cancún con aguas turquesas del Mar Caribe, palmeras y la Zona Hotelera"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-playa">Playa</span>
+            <h3>Cancún</h3>
+            <p>
+              Paraíso tropical en el Caribe mexicano, Cancún seduce con sus aguas de un turquesa
+              imposible, arena blanca como la nieve y sol todo el año. La Zona Hotelera alberga
+              los mejores resorts <em>all-inclusive</em> de América Latina, mientras que sus alrededores
+              esconden tesoros mayas como Chichén Itzá y Tulum. Ideal para quienes buscan sol,
+              diversión y cultura en un solo destino.
+            </p>
+            <a href="guias/cancun.pdf"
+               download="Itinerario_Cancun.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Cancún"
+               id="download-cancun">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+      </div><!-- /destinos-grid playa -->
+    </section><!-- /destinos-playa -->
+
+    <!-- ============================================================
+         DESTINOS DE MONTAÑA
+    ============================================================ -->
+    <section class="destinos-section" id="destinos-montana"
+             aria-label="Destinos turísticos de montaña">
+
+      <h2 class="section-title">⛰️ Destinos de Montaña</h2>
+
+      <div class="destinos-grid">
+
+        <!-- ── Mendoza ─────────────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Mendoza">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/mendoza.png"
+                 alt="Viñedos de Mendoza con filas de vides y la Cordillera de los Andes nevada al fondo bajo luz dorada"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-montana">Montaña</span>
+            <h3>Mendoza</h3>
+            <p>
+              Capital mundial del <em>Malbec</em>, Mendoza es el destino ineludible para amantes
+              del vino y la montaña. Sus extensos viñedos al pie de la imponente Cordillera de
+              los Andes crean un paisaje de belleza extraordinaria. Además del enoturismo de clase
+              mundial, ofrece el desafío del Aconcagua para los más aventureros, esquí en Las Leñas
+              y un circuito gastronómico de primer nivel.
+            </p>
+            <a href="guias/mendoza.pdf"
+               download="Itinerario_Mendoza.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Mendoza"
+               id="download-mendoza">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Bariloche ──────────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Bariloche">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/bariloche.png"
+                 alt="Vista panorámica del Lago Nahuel Huapi con bosques de pinos y montañas nevadas en Bariloche"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-montana">Montaña</span>
+            <h3>Bariloche</h3>
+            <p>
+              La <em>"Suiza argentina"</em> enamora con su combinación única de lagos cristalinos,
+              bosques de arrayanes y picos nevados en la Patagonia andina. El Lago Nahuel Huapi,
+              el Cerro Catedral —con sus pistas de esquí de clase mundial— y el delicioso chocolate
+              artesanal son solo algunas de sus atracciones. Perfecta en verano para trekking y
+              kayak, y en invierno para esquí y snowboard.
+            </p>
+            <a href="guias/bariloche.pdf"
+               download="Itinerario_Bariloche.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Bariloche"
+               id="download-bariloche">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+        <!-- ── Cusco ──────────────────────────────────────────── -->
+        <article class="destino-card" aria-label="Destino: Cusco">
+          <div class="card-img-wrapper">
+            <img class="card-img"
+                 src="imagenes/cusco.png"
+                 alt="Ciudadela de Machu Picchu con sus terrazas incas y montañas andinas envueltas en nubes"
+                 loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-montana">Montaña</span>
+            <h3>Cusco</h3>
+            <p>
+              Antigua capital del Imperio Inca y Patrimonio de la Humanidad, Cusco es donde el
+              pasado milenario convive con el presente. Sus calles empedradas, la majestuosa Plaza
+              de Armas y los templos incaicos crean una atmósfera única e irrepetible. A pocos
+              kilómetros se encuentra <em>Machu Picchu</em>, una de las Siete Maravillas del Mundo
+              Moderno, accesible en tren panorámico a través de los Andes.
+            </p>
+            <a href="guias/cusco.pdf"
+               download="Itinerario_Cusco.pdf"
+               class="btn-download"
+               aria-label="Descargar itinerario PDF de Cusco"
+               id="download-cusco">
+              📥 Descargar itinerario
+            </a>
+          </div>
+        </article>
+
+      </div><!-- /destinos-grid montana -->
+    </section><!-- /destinos-montana -->
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <p>© 2026 Aterrizar.com — Todos los derechos reservados</p>
+  </footer>
+
+</body>
+</html>

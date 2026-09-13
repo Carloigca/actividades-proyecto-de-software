@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aterrizar.com - Tu destino ideal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilosIA.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1 class="logo">Aterrizar.com</h1>
+        <div class="nav-links">
+            <a href="#contacto" class="btn-nav">Contacto</a>
+            <a href="#mantenimiento" class="btn-nav">Mantenimiento</a>
+            <a href="#lista-destinos" class="btn-nav">Lista de destinos turísticos</a>
+        </div>
+    </nav>
+
+    <!-- Modals (Overlay) CSS-only -->
+    <!-- Contacto Modal -->
+    <div id="contacto" class="modal">
+        <a href="#" class="modal-backdrop" aria-label="Cerrar modal"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn" aria-label="Cerrar">&times;</a>
+            <h2>Contacto</h2>
+            <!-- El formulario navega a #contacto-registrado para simular el envío exitoso -->
+            <form action="#contacto-registrado" method="get">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" name="apellido" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="btn-submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contacto Registrado Mensaje -->
+    <div id="contacto-registrado" class="modal">
+        <a href="#" class="modal-backdrop" aria-label="Cerrar modal"></a>
+        <div class="modal-content text-center">
+            <a href="#" class="close-btn" aria-label="Cerrar">&times;</a>
+            <div class="success-icon">✓</div>
+            <h2>Contacto registrado</h2>
+            <p>Tus datos han sido guardados con éxito. Nos pondremos en contacto pronto.</p>
+        </div>
+    </div>
+
+    <!-- Mantenimiento Modal -->
+    <div id="mantenimiento" class="modal">
+        <a href="#" class="modal-backdrop" aria-label="Cerrar modal"></a>
+        <div class="modal-content text-center">
+            <a href="#" class="close-btn" aria-label="Cerrar">&times;</a>
+            <div class="info-icon">ℹ</div>
+            <h2>Mantenimiento</h2>
+            <p>Sitio web realizado para la materia <strong>"Proyecto de Software"</strong></p>
+            <p>Estudiante: <strong>Castro Carlo</strong><br>Legajo: <strong>24739/0</strong></p>
+        </div>
+    </div>
+
+    <!-- Lista de Destinos Panel -->
+    <div id="lista-destinos" class="panel">
+        <a href="#" class="panel-backdrop" aria-label="Cerrar panel"></a>
+        <div class="panel-content">
+            <a href="#" class="close-btn" aria-label="Cerrar">&times;</a>
+            <h2>Lista de Destinos Turísticos</h2>
+            <p class="panel-subtitle">Todos nuestros destinos disponibles por categoría.</p>
+            <div class="listas-container">
+                <div class="lista-categoria">
+                    <h3>Playa 🌊</h3>
+                    <ul>
+                        <li>Mar del Plata</li>
+                        <li>Cancún</li>
+                        <li>Ibiza</li>
+                    </ul>
+                </div>
+                <div class="lista-categoria">
+                    <h3>Montaña ⛰️</h3>
+                    <ul>
+                        <li>Mendoza</li>
+                        <li>Bariloche</li>
+                        <li>Alpes Suizos</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#" class="btn-outline-close">Ocultar la lista</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h2 class="hero-title">Buscá la información de tu destino turístico ideal!</h2>
+            
+            <!-- Carrusel -->
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="slide"><img src="imagenes/mar_del_plata.png" alt="Mar del Plata"></div>
+                    <div class="slide"><img src="imagenes/mendoza.png" alt="Mendoza"></div>
+                    <div class="slide"><img src="imagenes/cancun.png" alt="Cancún"></div>
+                    <div class="slide"><img src="imagenes/bariloche.png" alt="Bariloche"></div>
+                    <div class="slide"><img src="imagenes/ibiza.png" alt="Ibiza"></div>
+                    <div class="slide"><img src="imagenes/alpes_suizos.png" alt="Alpes Suizos"></div>
+                    <!-- Duplicados para hacer el loop infinito más fluido -->
+                    <div class="slide"><img src="imagenes/mar_del_plata.png" alt="Mar del Plata"></div>
+                    <div class="slide"><img src="imagenes/mendoza.png" alt="Mendoza"></div>
+                    <div class="slide"><img src="imagenes/cancun.png" alt="Cancún"></div>
+                </div>
+            </div>
+
+            <!-- Botón de Búsqueda -->
+            <a href="#busqueda" class="btn-buscar">Buscar destino!</a>
+        </header>
+        
+        <!-- Desplegable de búsqueda -->
+        <section id="busqueda" class="busqueda-dropdown">
+            <p class="instruccion">Ingresa la categoría del destino buscado</p>
+            <div class="botones-categoria">
+                <a href="#cat-playa" class="btn-categoria playa-btn">Playa 🌊</a>
+                <a href="#cat-montana" class="btn-categoria montana-btn">Montaña ⛰️</a>
+            </div>
+        </section>
+
+        <!-- Resultados de Búsqueda: Playa -->
+        <section id="cat-playa" class="resultados-categoria">
+            <div class="seccion-header">
+                <h2>Destinos de Playa 🌊</h2>
+                <a href="#" class="btn-cerrar-resultados">Cerrar resultados</a>
+            </div>
+            <div class="grid-destinos">
+                <!-- Destino 1 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/mar_del_plata.png" alt="Mar del Plata" class="img-destino">
+                        <span class="badge badge-playa">Playa</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Mar del Plata</h3>
+                        <p class="resena">La ciudad costera más famosa de Argentina, con extensas playas, vibrante vida nocturna y deliciosa gastronomía marina.</p>
+                        <a href="guias/mar_del_plata.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+                <!-- Destino 2 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/cancun.png" alt="Cancún" class="img-destino">
+                        <span class="badge badge-playa">Playa</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Cancún</h3>
+                        <p class="resena">Un paraíso caribeño con increíbles playas de arena blanca, aguas cálidas color turquesa y una asombrosa barrera de coral.</p>
+                        <a href="guias/cancun.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+                <!-- Destino 3 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/ibiza.png" alt="Ibiza" class="img-destino">
+                        <span class="badge badge-playa">Playa</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Ibiza</h3>
+                        <p class="resena">Isla del Mediterráneo mundialmente conocida por sus calas de ensueño, aguas cristalinas y un ambiente festivo inigualable.</p>
+                        <a href="guias/ibiza.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Resultados de Búsqueda: Montaña -->
+        <section id="cat-montana" class="resultados-categoria">
+            <div class="seccion-header">
+                <h2>Destinos de Montaña ⛰️</h2>
+                <a href="#" class="btn-cerrar-resultados">Cerrar resultados</a>
+            </div>
+            <div class="grid-destinos">
+                <!-- Destino 4 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/mendoza.png" alt="Mendoza" class="img-destino">
+                        <span class="badge badge-montana">Montaña</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Mendoza</h3>
+                        <p class="resena">Ubicada al pie de los Andes, es la capital mundial del Malbec, famosa por sus bodegas, turismo aventura y el Aconcagua.</p>
+                        <a href="guias/mendoza.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+                <!-- Destino 5 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/bariloche.png" alt="Bariloche" class="img-destino">
+                        <span class="badge badge-montana">Montaña</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Bariloche</h3>
+                        <p class="resena">Imponentes paisajes patagónicos de lagos cristalinos y frondosos bosques de pinos, ideal para esquiar en la nieve.</p>
+                        <a href="guias/bariloche.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+                <!-- Destino 6 -->
+                <article class="card-destino">
+                    <div class="img-wrapper">
+                        <img src="imagenes/alpes_suizos.png" alt="Alpes Suizos" class="img-destino">
+                        <span class="badge badge-montana">Montaña</span>
+                    </div>
+                    <div class="info-destino">
+                        <h3>Alpes Suizos</h3>
+                        <p class="resena">Majestuosas cumbres nevadas, pintorescos pueblos alpinos de cuento de hadas y actividades de montaña de nivel mundial.</p>
+                        <a href="guias/alpes_suizos.pdf" download class="btn-itinerario">Descargar Itinerario (PDF)</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
